@@ -1,6 +1,6 @@
 # flut
 
-A new Flutter application.
+Example Flutter application.
 
 ## Getting Started
 

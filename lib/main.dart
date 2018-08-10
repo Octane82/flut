@@ -63,6 +63,7 @@ class RandomWordsState extends State<RandomWords> {
       // ListView
       body: _buildSuggestions(),
     );
+
   }
 
   /// Переход на другую страницу с выбранными элементами из ListView
@@ -84,7 +85,7 @@ class RandomWordsState extends State<RandomWords> {
               return Scaffold(
                 appBar: AppBar(title: Text("Saved suggestions")),
                 body: ListView(children: divided),
-                floatingActionButton: FloatingActionButton(tooltip: "Pushed button", child: Icon(Icons.add), onPressed: (){ _showScreen(); },),     // onPressed - not realized
+                floatingActionButton: FloatingActionButton(tooltip: "Pushed button", child: Icon(Icons.add), onPressed: (){ _showLayoutExample(); },),     // onPressed - not realized (_showScreen();)
               );
             }
         )
@@ -101,6 +102,25 @@ class RandomWordsState extends State<RandomWords> {
             body: Center(child: MyButton(),),
           );
         })
+    );
+  }
+
+
+  void _showLayoutExample() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) {
+        // Return layout
+        //return ExampleLayout();
+        return Scaffold(
+          appBar: AppBar(title: Text("Example"),),
+          body: ListView(
+            children: <Widget>[
+              Image.asset('images/lake.jpg', width: 600.0, height: 240.0, fit: BoxFit.cover,),
+              titleSection,
+            ],
+          ),
+        );
+      })
     );
   }
 
@@ -157,6 +177,66 @@ class RandomWordsState extends State<RandomWords> {
   }
 
 
+  // Examples layouts
+
+  // Title section
+  Widget titleSection = Container(
+    padding: const EdgeInsets.all(32.0),
+    child: Row(
+      children: <Widget>[
+        Expanded(child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: Text('Oeschinen Lake Campground', style: TextStyle(fontWeight: FontWeight.bold),),
+            ),
+            Text('Kandersteg, Switzerland', style: TextStyle(color: Colors.grey),)
+          ],
+        )),
+        Icon(Icons.stars, color: Colors.red[500],),
+        Text('41')
+      ],
+    ),
+  );
+
+
+  Widget buttonSection = Container(
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        // buildButtonColumn(Icons.call, "CALL"), todo Only static members can be accessed
+
+      ],
+    ),
+  );
+
+
+
+  /// BUTTON COLUMN Builder
+  Column buildButtonColumn(IconData icon, String label) {
+    Color color = Theme.of(context).primaryColor;
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Icon(icon, color: color,),
+        Container(
+          margin: const EdgeInsets.only(top: 8.0),
+          child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 12.0,
+                fontWeight: FontWeight.w400,
+                color: color,
+              ),),
+        ),
+      ],
+    );
+  }
+
+
 }
 
 
@@ -185,6 +265,35 @@ class MyButton extends StatelessWidget {
   }
 }
 
+
+
+
+/*class ExampleLayout extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Widget titleSection = Container(
+      padding: const EdgeInsets.all(32.0),
+      child: Row(
+        children: <Widget>[
+          Expanded(child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Text('Oeschinen Lake Campground', style: TextStyle(fontWeight: FontWeight.bold),),
+              ),
+              Text('Kandersteg, Switzerland', style: TextStyle(color: Colors.grey),)
+            ],
+          )),
+          Icon(Icons.stars, color: Colors.red[500],),
+          Text('41')
+        ],
+      ),
+    );
+
+    return titleSection;
+  }
+}*/
 
 
 
